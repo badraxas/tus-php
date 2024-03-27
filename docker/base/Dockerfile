@@ -19,7 +19,7 @@ RUN apk update && apk add --no-cache \
   ca-certificates
 
 # Install required extensions.
-RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install pcntl redis
 
 # Install extensions not available with docker-php-ext.
 COPY ./bin/php-ext.sh /bin/php-ext

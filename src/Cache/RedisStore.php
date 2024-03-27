@@ -23,11 +23,13 @@ class RedisStore extends AbstractCache
         $options = empty($options) ? Config::get('redis') : $options;
 
         if (class_exists(Redis::class)) {
+            var_dump('Using ' . Redis::class);exit;
             $this->redis = new Redis($options);
             $this->redis->select($options['database']);
         }
 
         if ( ! isset($this->redis)) {
+            var_dump('Using ' . Predis::class);exit;
             $this->redis = new Predis($options);
         }
     }
