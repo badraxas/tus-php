@@ -52,5 +52,8 @@
     "branch-alias": {
       "dev-main": "2.3-dev"
     }
+  },
+  "suggest": {
+    "ext-redis": "*"
   }
 }
