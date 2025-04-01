@@ -42,8 +42,8 @@
     "sort-packages": true
   },
   "scripts": {
-    "test": "xdebug disable && vendor/bin/phpunit",
-    "test-coverage": "xdebug enable && vendor/bin/phpunit --coverage-html ./coverage"
+    "test": "docker compose exec tus-server vendor/bin/phpunit --testdox",
+    "test-coverage": "docker compose exec tus-server xdebug enable && vendor/bin/phpunit --coverage-html ./coverage"
   },
   "bin": [
     "bin/tus"

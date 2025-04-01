@@ -1,0 +1,49 @@
+services:
+  tus-server:
+    build:
+      #context: ../..
+      dockerfile: docker/server/Dockerfile
+    container_name: tus-php-server
+    ports:
+      - 8081:80
+    volumes:
+      - ./:/var/www:delegated
+      - ./example:/var/www/html:delegated
+      - ./docker/.data/server/logs:/var/log/nginx:delegated
+      - ./docker/.data/server/xdebug:/var/log/xdebug:delegated
+    entrypoint: entrypoint.sh
+    labels:
+      tag: tus-php-server
+      group: tus-php
+
+  tus-client:
+    build:
+      #context: ../..
+      dockerfile: docker/client/Dockerfile
+    container_name: tus-php-client
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www:delegated
+      - ./example:/var/www/html:delegated
+      - ./docker/.data/server/logs:/var/log/nginx:delegated
+      - ./docker/.data/server/xdebug:/var/log/xdebug:delegated
+    labels:
+      tag: tus-php-client
+      group: tus-php
+    environment:
+      - SERVER_URL=http://0.0.0.0:8081
+
+  redis:
+    image: redis
+    container_name: tus-php-redis
+    restart: always
+    ports:
+      - 6379:6379
+    labels:
+      tag: tus-php-redis
+      group: tus-php
+
+networks:
+  tus-php-network:
+    external: true
